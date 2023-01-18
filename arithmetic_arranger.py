@@ -20,20 +20,21 @@ def arithmetic_arranger(problems, solve = False):
     # split problems by space and create num1, num2, and operator variables
     values = problem.split()
     num1 = values[0]
-    num2 = values[2]
     operator = values[1]
-    
+    num2 = values[2]
+
     # error if any number is more than 4 digits
     if len(num1) > 4 or len(num2) > 4:
       return "Error: Numbers cannot be more than four digits."
     
-    # calculate longest line length 
-    line = ""
+    # calculate longest line length and append value to list of values
     width = max(len(num1), len(num2)) + 2
-    for i in range(width):
-      line += "-"
-    values.append(line)
-        
+    values.append(width)
+    
+    # line = " "
+    # for i in range(width):
+    #   line += "-"
+            
     #perform problem and append answer to values list
     if operator == "+":
       answer = str(int(num1) + int(num2))
@@ -42,24 +43,26 @@ def arithmetic_arranger(problems, solve = False):
     values.append(answer)
 
     solutions.append(values)
-  
 
+  # print(solutions)
+  
     # create output lines
-    # line1 = ""
-    # line2 = ""
-    # line3 = ""
-    # line4 = ""
+    line1 = ""
+    line2 = ""
+    line3 = ""
+    line4 = ""
 
-    # iterate through ********* to create joined data for lines 
-    # for output in values:
-
-    # line1 = output[0].rjust(width) + " " * 4
-    # line2 = output[1] + output[2].rjust(width - 1) + " " * 4
-    # line3 = output[3] + " " * 4
-    # line4 = output[4].rjust(width) + " " * 4
+    # iterate through solutions list containing values list and create joined data for each line
+    for output in solutions:
+      padding = output[3]
+      line1 += output[0].rjust(padding) + "    "
+      line2 += output[1] + output[2].rjust(padding - 1) + "    "
+      line3 += "-" * output[3] + "    "
+      line4 += output[4].rjust(padding) + "    " 
   
-    # solution = line1 + '    \n' + line2 + '    \n' + line3 
-    # print(solution)
+  print(line1 + '\n' + line2 + '\n' + line3)
+  print(line1 + '\n' + line2 + '\n' + line3 + '\n' + line4)
+    
 
 arithmetic_arranger(problemset)
 
