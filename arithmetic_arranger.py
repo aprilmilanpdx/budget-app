@@ -13,7 +13,7 @@ def arithmetic_arranger(problems, solve = False):
   line4 = ""
   
   # error if anything other than digits entered in numbers and if operator is not "+" or "-"
-  for problem in problems:
+  for index, problem in enumerate(problems):
     if re.search("[^\s0-9.+-]", problem):
         if re.search("[*]", problem) or re.search("[/]", problem):
           return "Error: Operator must be '+' or '-'."
@@ -24,7 +24,7 @@ def arithmetic_arranger(problems, solve = False):
     num1 = values[0]
     operator = values[1]
     num2 = values[2]
-
+    
     # error if any number is more than 4 digits
     if len(num1) > 4 or len(num2) > 4:
       return "Error: Numbers cannot be more than four digits."
@@ -38,21 +38,14 @@ def arithmetic_arranger(problems, solve = False):
     else:
       answer = str(int(num1) - int(num2))
     
-    if problem != problems[-1]:
-      line1 += num1.rjust(width) + "    "
-      line2 += operator + num2.rjust(width - 1) + "    "
-      line3 += "-" * width + "    "
-      line4 += answer.rjust(width) + "    " 
-    else:
-      line1 += num1.rjust(width) 
-      line2 += operator + num2.rjust(width - 1)
-      line3 += "-" * width 
-      line4 += answer.rjust(width)  
-      
+    spacer = "    " if index < len(problems) - 1 else ""
+  
+    line1 += num1.rjust(width) + spacer
+    line2 += operator + num2.rjust(width - 1) + spacer
+    line3 += "-" * width + spacer
+    line4 += answer.rjust(width) + spacer 
+    
   if solve == True:
     return line1 + "\n" + line2 + "\n" + line3 + "\n" + line4
   else:
     return line1 + "\n" + line2 + "\n" + line3
-
-
-
