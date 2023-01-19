@@ -3,11 +3,11 @@ problemset = ['32 + 698', '3801 - 2', '45 + 43', '123 + 49']
 import re
 
 def arithmetic_arranger(problems, solve = False):
-  # error if more than 5 problems
+  # accepts as first argument:list of up to 5 addition or subtraction problems, each with two numbers up to 4 digits each, with the + or - operator in between, accepts as second argument True or False whether to solve problem, default = False
+  
   if len(problems) > 5:
     return "Error: Too many problems."
   
-  # create empty list of solutions
   solutions = []
 
   # error if anything other than digits entered in numbers and if operator is not "+" or "-"
@@ -31,20 +31,15 @@ def arithmetic_arranger(problems, solve = False):
     width = max(len(num1), len(num2)) + 2
     values.append(width)
     
-    # line = " "
-    # for i in range(width):
-    #   line += "-"
-            
-    #perform problem and append answer to values list
+    # perform problem and append answer to values list
     if operator == "+":
       answer = str(int(num1) + int(num2))
     else:
       answer = str(int(num1) - int(num2))
     values.append(answer)
 
+    # add each values list to a comprehensive list of of values lists 
     solutions.append(values)
-
-  # print(solutions)
   
     # create output lines
     line1 = ""
@@ -57,13 +52,15 @@ def arithmetic_arranger(problems, solve = False):
       padding = output[3]
       line1 += output[0].rjust(padding) + "    "
       line2 += output[1] + output[2].rjust(padding - 1) + "    "
-      line3 += "-" * output[3] + "    "
+      line3 += "-" * padding + "    "
       line4 += output[4].rjust(padding) + "    " 
   
-  print(line1 + '\n' + line2 + '\n' + line3)
-  print(line1 + '\n' + line2 + '\n' + line3 + '\n' + line4)
+  if solve == True:
+    return line1 + '\n' + line2 + '\n' + line3 + '\n' + line4
+  else:
+    return line1 + '\n' + line2 + '\n' + line3
     
 
-arithmetic_arranger(problemset)
+print(arithmetic_arranger(problemset, True))
 
 
