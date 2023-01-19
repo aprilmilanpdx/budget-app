@@ -6,7 +6,7 @@ def arithmetic_arranger(problems, solve = False):
   if len(problems) > 5:
     return "Error: Too many problems."
   
-  # create empty output lines
+  # create empty output line
   line1 = ""
   line2 = ""
   line3 = ""
@@ -38,15 +38,21 @@ def arithmetic_arranger(problems, solve = False):
     else:
       answer = str(int(num1) - int(num2))
     
-    line1 += num1.rjust(width) + "    "
-    line2 += operator + num2.rjust(width - 1) + "    "
-    line3 += "-" * width + "    "
-    line4 += answer.rjust(width) + "    " 
+    if problem != problems[-1]:
+      line1 += num1.rjust(width) + "    "
+      line2 += operator + num2.rjust(width - 1) + "    "
+      line3 += "-" * width + "    "
+      line4 += answer.rjust(width) + "    " 
+    else:
+      line1 += num1.rjust(width) 
+      line2 += operator + num2.rjust(width - 1)
+      line3 += "-" * width 
+      line4 += answer.rjust(width)  
       
   if solve == True:
-    return line1 + '\n' + line2 + '\n' + line3 + '\n' + line4
+    return line1 + "\n" + line2 + "\n" + line3 + "\n" + line4
   else:
-    return line1 + '\n' + line2 + '\n' + line3
+    return line1 + "\n" + line2 + "\n" + line3
 
 
 
