@@ -10,7 +10,8 @@ class Category:
       items = ""
       total = 0
       for item in self.ledger:
-        items += f"{item['description']"
+        items += f"{item['description'][:23]}" + f"({item['amount']:>7}" + "\n"
+        total += item['amount']
       output = heading + items + "Total: " + str(total)
       return output
 
