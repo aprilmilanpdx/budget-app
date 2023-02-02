@@ -47,20 +47,20 @@ class Category:
         return True
       return False
 
-    def get_withdrawal(self):
-      total = 0
-      for item in self.ledger:
-        if item["amount"] < 0:
-          total += item["amount"]
-      return total
+    # def get_withdrawal(self):
+    #   total = 0
+    #   for item in self.ledger:
+    #     if item["amount"] < 0:
+    #       total += item["amount"]
+    #   return total
 
-    def get_total(categories):
-      total = 0
-      category_list = []
-      for category in categories:
-        total += category.get_withdrawal()
-        category_list.append(category.get_withdrawal())
-      return category_list
+    # def get_total(categories):
+    #   total = 0
+    #   category_list = []
+    #   for category in categories:
+    #     total += category.get_withdrawal()
+    #     category_list.append(category.get_withdrawal())
+    #   return category_list
       
 # The chart should show the percentage spent in each category passed in to the function. The percentage spent should be calculated only with withdrawals and not with deposits. Down the left side of the chart should be labels 0 - 100. The "bars" in the bar chart should be made out of the "o" character. The height of each bar should be rounded down to the nearest 10. The horizontal line below the bars should go two spaces past the final bar. Each category name should be written vertically below the bar. There should be a title at the top that says "Percentage spent by category".
 
@@ -68,12 +68,42 @@ class Category:
 
 def create_spend_chart(categories):
   """ accepts a list of categories as an argument and returns a string that is a bar chart"""
-  chart = "Percentage spent by category\n"
-  
-  for num in reversed(range(0, 110, 10)):
-    chart += str(num) + "\n"
-  
-  chart += "-" * 10 + "\n" 
 
-  for name in zip(*categories):
-    chart += "  ".join(name) + "\n"
+  names_list = []
+  withdraw_list = []
+  for category in categories:
+    names = category.name
+    names_list.append(names)
+    height = len(max(names_list, key=len))
+    padded = [word.ljust(height) for word in names_list]
+
+    withdraw_total = 0
+    for item in category.ledger:
+      if item["amount"] < 0:
+          withdraw_total += item["amount"]
+    withdraw_list.append(withdraw_total)
+  total = int(round(sum(withdraw_list)))
+
+  percentages = []
+  for num in withdraw_list:
+    percent = num * 100 / total 
+    bar_percent = (percent // 10) * 10
+    percentages.append(bar_percent)
+
+  chart = "Percentage spent by category\n"
+ 
+  for num in reversed(range(0, 110, 10)):
+    chart += f"{str(num) + '|':>4}"
+    for percent in percentages:
+      if percent >= num:
+        chart += " o "
+      else:
+        chart += "   "
+    chart += " \n"
+    
+  chart += "    " + ("-" * (len(names_list) + 2) * 2) + "\n" 
+
+  for row in zip(*padded):
+    chart += "     " + "  ".join(row) + "  \n"
+
+  return chart.rstrip("\n")
