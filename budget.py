@@ -1,6 +1,4 @@
 class Category:
-  # def __init__(self) -> None:
-    # pass
     def __init__(self, name):
       self.name = name
       self.ledger = []
@@ -35,7 +33,7 @@ class Category:
 
     def check_funds(self, amount):
       """Accepts an amount as an argument. Returns False if the amount > balance of the category.  Returns True otherwise."""
-      if self.get_balance() > amount:
+      if self.get_balance() >= amount:
         return True
       return False
     
@@ -46,25 +44,6 @@ class Category:
         category.deposit(amount, "Transfer from " + self.name)
         return True
       return False
-
-    # def get_withdrawal(self):
-    #   total = 0
-    #   for item in self.ledger:
-    #     if item["amount"] < 0:
-    #       total += item["amount"]
-    #   return total
-
-    # def get_total(categories):
-    #   total = 0
-    #   category_list = []
-    #   for category in categories:
-    #     total += category.get_withdrawal()
-    #     category_list.append(category.get_withdrawal())
-    #   return category_list
-      
-# The chart should show the percentage spent in each category passed in to the function. The percentage spent should be calculated only with withdrawals and not with deposits. Down the left side of the chart should be labels 0 - 100. The "bars" in the bar chart should be made out of the "o" character. The height of each bar should be rounded down to the nearest 10. The horizontal line below the bars should go two spaces past the final bar. Each category name should be written vertically below the bar. There should be a title at the top that says "Percentage spent by category".
-
-# This function will be tested with up to four categories.
 
 def create_spend_chart(categories):
   """ accepts a list of categories as an argument and returns a string that is a bar chart"""
